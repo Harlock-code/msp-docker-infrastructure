@@ -155,9 +155,9 @@ Permite acceder rápidamente a:
 
 ---
 
-# 📸 Diagrama
+# ⚙️ Diagrama Arquitectura General
 
-
+![architecture](screenshots/infrastructure-diagram.png)
 
 ---
 
