@@ -157,7 +157,7 @@ Permite acceder rápidamente a:
 
 # ⚙️ Diagrama Arquitectura General
 
-![architecture](screenshots/infrastructure-diagram.png)
+![architecture](https://github.com/Harlock-code/msp-docker-infrastructure/blob/main/screenshots/diagrama.png?raw=true)
 
 ---
 
