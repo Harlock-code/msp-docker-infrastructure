@@ -155,23 +155,9 @@ Permite acceder rápidamente a:
 
 ---
 
-# 📸 Capturas
+# 📸 Diagrama
 
-## Homepage
 
-(Añadir captura)
-
----
-
-## Nginx Proxy Manager
-
-(Añadir captura)
-
----
-
-## Technitium DNS
-
-(Añadir captura)
 
 ---
 
