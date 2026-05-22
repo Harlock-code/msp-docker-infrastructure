@@ -1,248 +1,203 @@
-# MSP Docker Infrastructure Lab
+# MSP / DevOps Lab — Docker Infrastructure
 
-Self-hosted MSP / DevOps infrastructure built with Docker, Proxmox and Linux.
+![banner](https://github.com/Harlock-code/Harlock-code/blob/main/banner_javi.png?raw=true)
 
----
+![Docker](https://img.shields.io/badge/Docker-Infrastructure-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Proxmox](https://img.shields.io/badge/Proxmox-HomeLab-E57000?style=for-the-badge&logo=proxmox)
+![Linux](https://img.shields.io/badge/Linux-Server-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Nginx Proxy Manager](https://img.shields.io/badge/Nginx_Proxy_Manager-Reverse_Proxy-009639?style=for-the-badge&logo=nginx)
+![Technitium DNS](https://img.shields.io/badge/Technitium-DNS-2C89A0?style=for-the-badge)
+![Self Hosted](https://img.shields.io/badge/Self_Hosted-Platform-1ABC9C?style=for-the-badge)
 
-# Overview
+## 📌 Descripción
 
-This project is a modular self-hosted infrastructure focused on:
+Repositorio de infraestructura base para un laboratorio MSP/DevOps self-hosted basado en Docker, Linux y Proxmox.
 
-- SysAdmin
-- DevOps
-- MSP environments
-- Docker infrastructure
-- Self-hosted business services
-- Infrastructure as Code mentality
-- Backup and disaster recovery
-- Reusable deployments
+Este repositorio contiene los stacks principales encargados de proporcionar servicios core como reverse proxy, DNS interno, dashboard centralizado, monitorización básica y administración de contenedores.
 
----
-
-# Infrastructure
-
-## Hypervisor
-
-- Proxmox VE
-
-## Firewall
-
-- IPFire
-
-## Internal DNS
-
-- Technitium DNS
-
-## Reverse Proxy
-
-- Nginx Proxy Manager
+Forma parte de una plataforma modular automatizada mediante Ansible, donde cada servicio puede desplegarse, configurarse o eliminarse de forma declarativa.
 
 ---
 
-# Architecture
+# 🧱 Servicios incluidos
 
-Client
-↓
-Technitium DNS
-↓
-Nginx Proxy Manager
-↓
-Docker Services
-
----
-
-# Docker Hosts
-
-## srv-docker-main
-
-Core infrastructure services:
-
-- Portainer
 - Nginx Proxy Manager
 - Technitium DNS
 - Homepage
-- Uptime Kuma
+- Portainer
 - Dozzle
-- Watchtower
+- Uptime Kuma
 - Duplicati
+- Watchtower
+- cAdvisor
+- Node Exporter
+- Prometheus / Grafana / Loki / Promtail
 
 ---
 
-## srv-docker-apps
+# ⚙️ Rol dentro de la plataforma
 
-Application services:
+```text
+msp-ansible-automation
+        ↓
+msp-docker-infrastructure
+        ↓
+Core Services
+        ↓
+DNS · Reverse Proxy · Dashboard · Monitoring · Backups
+```
 
-- WireGuard
-- Vaultwarden
-- Nextcloud
-- Portainer Agent
-
----
-
-# Features
-
-- Docker multi-host infrastructure
-- Reverse proxy architecture
-- Internal DNS resolution
-- Wildcard SSL certificates
-- VPN remote access
-- Password manager
-- Private cloud
-- Monitoring and logging
-- Automated container updates
-- Incremental backups
-- Disaster recovery ready
-- Persistent Docker volumes
-- Infrastructure modularization
+Este repositorio representa la capa de infraestructura base sobre la que se apoyan las aplicaciones self-hosted del entorno MSP.
 
 ---
 
-# Networks
+# 🚀 Características principales
 
-- proxy_net
-- backend_net
-- monitoring_net
-
----
-
-# Backup Strategy
-
-Duplicati is used for:
-
-- Incremental backups
-- AES-256 encryption
-- Deduplication
-- Smart retention
-- Disaster recovery preparation
+- ✔ Stacks Docker Compose reutilizables
+- ✔ Servicios core separados por carpetas
+- ✔ Preparado para despliegue automático con Ansible
+- ✔ Integración con redes Docker externas
+- ✔ Reverse Proxy mediante Nginx Proxy Manager
+- ✔ DNS interno mediante Technitium
+- ✔ Dashboard centralizado con Homepage
+- ✔ Base para monitorización y backups
+- ✔ Arquitectura modular y extensible
 
 ---
 
-# Technologies Used
+# 📂 Estructura del repositorio
 
-- Linux
-- Docker
-- Docker Compose
-- Proxmox
-- IPFire
-- WireGuard
-- MariaDB
-- Nginx
-- Technitium DNS
-- Git
-- GitHub
+```text
+nginx-proxy-manager/
+technitium/
+homepage/
+portainer/
+dozzle/
+uptime-kuma/
+duplicati/
+watchtower/
+monitoring/
+cadvisor/
+node-exporter/
+```
 
----
-
-# Future Roadmap
-
-## Infrastructure
-
-- Backup VM
-- Grafana
-- Prometheus
-- SIEM
-- Centralized logging
-- Ansible
-- CI/CD
-- MinIO / S3 storage
-
-## Applications
-
-- Gitea
-- Authentik
-- Jellyfin
-- Advanced monitoring
+Cada carpeta contiene su propio `docker-compose.yml` y, cuando es necesario, su archivo `.env.example`.
 
 ---
 
-# Philosophy
+# 🌐 Redes Docker
 
-Containers are disposable.
+La infraestructura utiliza redes Docker externas para separar servicios y facilitar la comunicación entre stacks:
 
-The important parts are:
+```text
+proxy_net
+monitoring_net
+backend_net
+```
 
-- /opt/stacks
-- /opt/data
+Ejemplo:
 
-Infrastructure should be:
-
-- reusable
-- modular
-- documented
-- reproducible
-
----
-
-# Status
-
-Project currently under active development.
+```yaml
+networks:
+  proxy_net:
+    external: true
+```
 
 ---
 
-# Screenshots
+# 🔁 Flujo de despliegue
 
-## Homepage Dashboard
+```text
+Ansible
+   ↓
+Copia repositorios
+   ↓
+Genera .env desde .env.example
+   ↓
+Crea redes Docker
+   ↓
+Ejecuta docker compose up -d
+   ↓
+Servicios core disponibles
+```
 
-![Homepage](screenshots/home.png)
+---
+
+# 🔒 Reverse Proxy y DNS
+
+La plataforma utiliza:
+
+- **Nginx Proxy Manager** para publicar servicios internos mediante dominios amigables.
+- **Technitium DNS** para resolver dominios internos del laboratorio.
+- **SSL wildcard interno** gestionado desde la automatización Ansible.
+
+Ejemplo:
+
+```text
+home.cliente.lab.local
+vault.cliente.lab.local
+nextcloud.cliente.lab.local
+```
+
+---
+
+# 🖥️ Dashboard centralizado
+
+Homepage actúa como panel central para visualizar los servicios desplegados.
+
+Permite acceder rápidamente a:
+- Reverse Proxy
+- DNS interno
+- Monitorización
+- Backups
+- Aplicaciones self-hosted
+- Herramientas de administración
+
+---
+
+# 📸 Capturas
+
+## Homepage
+
+(Añadir captura)
 
 ---
 
 ## Nginx Proxy Manager
 
-![NPM](screenshots/npm.png)
+(Añadir captura)
 
 ---
-
-## Uptime Kuma
-
-![Kuma](screenshots/kuma.png)
-
----
-
-## Portainer Local
-
-![Portainer Local](screenshots/portainer.local.png)
-
----
-
-## Portainer Stacks
-
-![Portainer Stacks](screenshots/portainer.local.stacks.png)
-
----
-
-## Portainer Remote Apps Host
-
-![Portainer Apps](screenshots/portainer.apps.stacks.png)
-
----
-
-## Nextcloud
-
-![Nextcloud](screenshots/next.png)
-
----
-
-## Vaultwarden
-
-![Vaultwarden](screenshots/vault.png)
-
----
-
-## WireGuard
-
-![WireGuard](screenshots/wire.png)
 
 ## Technitium DNS
 
-![Technitium](screenshots/dns.png)
+(Añadir captura)
 
 ---
 
-## Duplicati
+# 🔗 Repositorios relacionados
 
-![Duplicati](screenshots/duplicati.png)
+## Automatización Ansible
 
-## Nextcloud
+https://github.com/Harlock-code/msp-ansible-automation
 
-![Nextcloud](screenshots/next.png)
+## Aplicaciones self-hosted
+
+https://github.com/Harlock-code/msp-docker-apps
+
+---
+
+# 🎯 Roadmap
+
+- Mejorar stack de observabilidad
+- Integrar Grafana + Prometheus + Loki
+- Añadir backups automatizados
+- Preparar entornos multi-cliente
+- Integrar Terraform + Proxmox
+- Añadir validaciones y healthchecks
+
+---
+
+# 📜 Licencia
+
+Proyecto orientado a aprendizaje, automatización e infraestructura self-hosted.
