@@ -9,17 +9,17 @@
 ![Technitium DNS](https://img.shields.io/badge/Technitium-DNS-2C89A0?style=for-the-badge)
 ![Self Hosted](https://img.shields.io/badge/Self_Hosted-Platform-1ABC9C?style=for-the-badge)
 
-## 📌 Descripción
+## 📌 Description
 
-Repositorio de infraestructura base para un laboratorio MSP/DevOps self-hosted basado en Docker, Linux y Proxmox.
+Base infrastructure repository for a self-hosted MSP/DevOps lab based on Docker, Linux, and Proxmox.
 
-Este repositorio contiene los stacks principales encargados de proporcionar servicios core como reverse proxy, DNS interno, dashboard centralizado, monitorización básica y administración de contenedores.
+This repository contains the main stacks responsible for providing core services such as reverse proxy, internal DNS, centralized dashboard, basic monitoring, backups, and container administration.
 
-Forma parte de una plataforma modular automatizada mediante Ansible, donde cada servicio puede desplegarse, configurarse o eliminarse de forma declarativa.
+It is part of a modular platform automated with Ansible, where each service can be deployed, configured, or removed declaratively.
 
 ---
 
-# 🧱 Servicios incluidos
+# 🧱 Included Services
 
 - Nginx Proxy Manager
 - Technitium DNS
@@ -35,7 +35,7 @@ Forma parte de una plataforma modular automatizada mediante Ansible, donde cada 
 
 ---
 
-# ⚙️ Rol dentro de la plataforma
+# ⚙️ Role Within the Platform
 
 ```text
 msp-ansible-automation
@@ -47,25 +47,25 @@ Core Services
 DNS · Reverse Proxy · Dashboard · Monitoring · Backups
 ```
 
-Este repositorio representa la capa de infraestructura base sobre la que se apoyan las aplicaciones self-hosted del entorno MSP.
+This repository represents the base infrastructure layer that supports the self-hosted applications of the MSP environment.
 
 ---
 
-# 🚀 Características principales
+# 🚀 Main Features
 
-- ✔ Stacks Docker Compose reutilizables
-- ✔ Servicios core separados por carpetas
-- ✔ Preparado para despliegue automático con Ansible
-- ✔ Integración con redes Docker externas
-- ✔ Reverse Proxy mediante Nginx Proxy Manager
-- ✔ DNS interno mediante Technitium
-- ✔ Dashboard centralizado con Homepage
-- ✔ Base para monitorización y backups
-- ✔ Arquitectura modular y extensible
+- ✔ Reusable Docker Compose stacks
+- ✔ Core services separated by folders
+- ✔ Ready for automated deployment with Ansible
+- ✔ Integration with external Docker networks
+- ✔ Reverse Proxy using Nginx Proxy Manager
+- ✔ Internal DNS using Technitium
+- ✔ Centralized dashboard with Homepage
+- ✔ Base for monitoring and backups
+- ✔ Modular and extensible architecture
 
 ---
 
-# 📂 Estructura del repositorio
+# 📂 Repository Structure
 
 ```text
 nginx-proxy-manager/
@@ -81,13 +81,13 @@ cadvisor/
 node-exporter/
 ```
 
-Cada carpeta contiene su propio `docker-compose.yml` y, cuando es necesario, su archivo `.env.example`.
+Each folder contains its own `docker-compose.yml` and, when required, its own `.env.example` file.
 
 ---
 
-# 🌐 Redes Docker
+# 🌐 Docker Networks
 
-La infraestructura utiliza redes Docker externas para separar servicios y facilitar la comunicación entre stacks:
+The infrastructure uses external Docker networks to separate services and simplify communication between stacks:
 
 ```text
 proxy_net
@@ -95,7 +95,7 @@ monitoring_net
 backend_net
 ```
 
-Ejemplo:
+Example:
 
 ```yaml
 networks:
@@ -105,69 +105,70 @@ networks:
 
 ---
 
-# 🔁 Flujo de despliegue
+# 🔁 Deployment Workflow
 
 ```text
 Ansible
    ↓
-Copia repositorios
+Clones repositories
    ↓
-Genera .env desde .env.example
+Generates .env from .env.example
    ↓
-Crea redes Docker
+Creates Docker networks
    ↓
-Ejecuta docker compose up -d
+Runs docker compose up -d
    ↓
-Servicios core disponibles
+Core services available
 ```
 
 ---
 
-# 🔒 Reverse Proxy y DNS
+# 🔒 Reverse Proxy and DNS
 
-La plataforma utiliza:
+The platform uses:
 
-- **Nginx Proxy Manager** para publicar servicios internos mediante dominios amigables.
-- **Technitium DNS** para resolver dominios internos del laboratorio.
-- **SSL wildcard interno** gestionado desde la automatización Ansible.
+- **Nginx Proxy Manager** to publish internal services using friendly domain names.
+- **Technitium DNS** to resolve internal laboratory domains.
+- **Internal wildcard SSL** managed through Ansible automation.
 
-Ejemplo:
+Example:
 
 ```text
-home.cliente.lab.local
-vault.cliente.lab.local
-nextcloud.cliente.lab.local
+home.client.lab.local
+vault.client.lab.local
+nextcloud.client.lab.local
 ```
 
 ---
 
-# 🖥️ Dashboard centralizado
+# 🖥️ Centralized Dashboard
 
-Homepage actúa como panel central para visualizar los servicios desplegados.
+Homepage acts as the central panel for visualizing deployed services.
 
-Permite acceder rápidamente a:
+It provides quick access to:
+
 - Reverse Proxy
-- DNS interno
-- Monitorización
+- Internal DNS
+- Monitoring
 - Backups
-- Aplicaciones self-hosted
-- Herramientas de administración
+- Self-hosted applications
+- Administration tools
 
 ---
 
-# ⚙️ Diagrama Arquitectura General
+# ⚙️ General Architecture Diagram
 
 ![architecture](https://github.com/Harlock-code/msp-docker-infrastructure/blob/main/screenshots/diagrama.png?raw=true)
 
 ---
 
-# 🔗 Repositorios relacionados
+# 🔗 Related Repositories
 
-## Automatización Ansible
+## Ansible Automation
 
 https://github.com/Harlock-code/msp-ansible-automation
 
-## Aplicaciones self-hosted
+## Self-hosted Applications
 
 https://github.com/Harlock-code/msp-docker-apps
 
@@ -175,15 +176,15 @@ https://github.com/Harlock-code/msp-docker-apps
 
 # 🎯 Roadmap
 
-- Mejorar stack de observabilidad
-- Integrar Grafana + Prometheus + Loki
-- Añadir backups automatizados
-- Preparar entornos multi-cliente
-- Integrar Terraform + Proxmox
-- Añadir validaciones y healthchecks
+- Improve the observability stack
+- Integrate Grafana + Prometheus + Loki
+- Add automated backups
+- Prepare multi-client environments
+- Integrate Terraform + Proxmox
+- Add validations and healthchecks
 
 ---
 
-# 📜 Licencia
+# 📜 License
 
-Proyecto orientado a aprendizaje, automatización e infraestructura self-hosted.
+Project focused on learning, automation, and self-hosted infrastructure.
